@@ -29,5 +29,4 @@ function start(){
   $('#puzzle').hide();
   $('#slideshow').hide();
   fadeCache();
-  timer();
 };

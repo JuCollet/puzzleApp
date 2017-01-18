@@ -187,10 +187,12 @@ function discoverPuzzlePiece(anim){
       randomNumbers.push(random);
       if(anim) {
         // Avec animation;
+        console.log("Pièce "+random+", animation : "+anim);
         $("body").append(pieceStart1+" class='animInit' id='"+"reveal"+random+"' fill='#FF2400'"+pieceStart2+pieceForm(puzzle[random])+pieceEnd);
         $("#reveal"+random).animate({top:"20%"},200).animate({top:($("#bloc"+random).offset().top)+"px", left:($("#bloc"+random).offset().left)+"px"},600).addClass("revealAnim").animate({opacity:"0"}, function(){$("#bloc"+random).fadeOut('short');});
       } else {
         // Sans animation;
+        console.log("Pièce "+random+", animation : "+anim);
         $("#bloc"+random).fadeOut('short');
       }
     };
@@ -210,8 +212,8 @@ function discoverAllPuzzlePieces(){
   };
 };
 function puzzleReset(){
-  $('.animInit').remove();
   $('#puzzle').empty();
+  $('.animInit').remove();
   playSlideshow(false);
   $("#slideshow").fadeOut(500);
   colonneGauche = [],
