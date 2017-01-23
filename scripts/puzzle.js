@@ -70,7 +70,6 @@ const rows = 15,
       secret = [53,54,55,68,69,70,83,84,85];
 let colonneGauche = [],
     colonneDroite = [],
-    calCol = col,
     bordHaut = [],
     bordBas = [],
     puzzle = [],
@@ -83,6 +82,7 @@ let colonneGauche = [],
 
 // Création du puzzle
 function puzzleCreate(){
+  let calCol = col;
   /* Création d'un tableau contenant les numéros des pièces
      se trouvant aux extrémités gauche et droite (sauf coin)*/
   for(i=0;i<(rows-2);i++){
