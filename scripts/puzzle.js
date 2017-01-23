@@ -1,5 +1,5 @@
 const rows = 15,
-      col = 20,
+      col = 15,
       blocWidth = 70,
       blocHeight = 70,
       taillePiece = 50,
@@ -66,7 +66,8 @@ const rows = 15,
             };
           return finalForm;
       },
-      pieceEnd = '</svg>';
+      pieceEnd = '</svg>',
+      secret = [53,54,55,68,69,70,83,84,85];
 let colonneGauche = [],
     colonneDroite = [],
     calCol = col,
@@ -77,7 +78,8 @@ let colonneGauche = [],
     posX = -10,
     posY = -10,
     puzzleEnd = false,
-    puzzlePlaying = false;
+    timer3s = timer(3000),
+    timer6s = timer(6000);
 
 // Création du puzzle
 function puzzleCreate(){
@@ -173,31 +175,23 @@ function puzzleCreate(){
       posX = -10;
     };
   };
-  puzzlePlaying = true;
 };
 // Révélation des pièces du Puzzle
-function discoverPuzzlePiece(anim){
+function discoverPuzzlePiece(){
   const random = Math.floor(Math.random()*puzzle.length);
   // Est-ce qu'il reste des pièces à révéler ?
-  if(randomNumbers.length < puzzle.length-1 && !puzzleEnd && puzzlePlaying){
+  if(randomNumbers.length < puzzle.length-1){
     // si oui, est-ce que la pièce a déjà été révélée ?
     if(randomNumbers.indexOf(random) != -1 || random === 0){
       discoverPuzzlePiece();
+    } else if(secret.indexOf(random) != -1 && randomNumbers.length < 200) {
+      discoverPuzzlePiece();
     } else {
       randomNumbers.push(random);
-      if(anim) {
-        // Avec animation;
-        console.log("Pièce "+random+", animation : "+anim);
-        $("body").append(pieceStart1+" class='animInit' id='"+"reveal"+random+"' fill='#FF2400'"+pieceStart2+pieceForm(puzzle[random])+pieceEnd);
-        $("#reveal"+random).animate({top:"20%"},200).animate({top:($("#bloc"+random).offset().top)+"px", left:($("#bloc"+random).offset().left)+"px"},600).addClass("revealAnim").animate({opacity:"0"}, function(){$("#bloc"+random).fadeOut('short');});
-      } else {
-        // Sans animation;
-        console.log("Pièce "+random+", animation : "+anim);
-        $("#bloc"+random).fadeOut('short');
-      }
+      $("body").append(pieceStart1+" class='animInit' id='"+"reveal"+random+"' fill='#FF2400'"+pieceStart2+pieceForm(puzzle[random])+pieceEnd);
+      $("#reveal"+random).animate({top:"20%"},200).animate({top:($("#bloc"+random).offset().top)+"px", left:($("#bloc"+random).offset().left)+"px"},600).addClass("revealAnim").animate({opacity:"0"}, function(){$("#bloc"+random).fadeOut('short');});
+      console.log((puzzle.length-randomNumbers.length)-1+' pièces restantes');
     };
-  } else if(!puzzlePlaying) {
-    console.log('Puzzle not playing');
   } else {
     // Il ne reste plus de pièce à révéler, fin de l'animation
     puzzleEnd = true;
@@ -211,21 +205,31 @@ function discoverAllPuzzlePieces(){
     $("#bloc"+i).delay(i*4).fadeOut('slow');
   };
 };
-function puzzleReset(){
-  $('#puzzle').empty();
-  $('.animInit').remove();
-  playSlideshow(false);
-  $("#slideshow").fadeOut(500);
-  colonneGauche = [],
-  colonneDroite = [],
-  calCol = col,
-  bordHaut = [],
-  bordBas = [],
-  puzzle = [],
-  randomNumbers = [],
-  posX = -10,
-  posY = -10,
-  puzzleEnd = false;
-  puzzleCreate();
-  $('#puzzle').fadeIn(500);
+
+function timer(time){
+  let interval = null,
+      running = false;
+  return {
+    start:function(){
+      if(!running) {
+        interval = setInterval(function(){
+        if(!puzzleEnd) {
+          discoverPuzzlePiece();
+          console.log(time/1000+'s timer running');
+        }
+        else {
+          clearInterval(interval);
+        }
+        },time);
+      } else {
+        console.log(time/1000+'s timer already running')
+      };
+      running = true;
+    },
+    stop:function(){
+      clearInterval(interval);
+      console.log(time/1000+'s timer stopped');
+      running = false;
+    }
+  };
 };

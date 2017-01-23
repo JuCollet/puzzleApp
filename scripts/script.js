@@ -6,27 +6,24 @@ function fadeCache(){
 document.onkeyup = function(e){
     if(e.keyCode === 85){
       // "u" dévoile une pièce avec animation
-      discoverPuzzlePiece(true);
-    } else if(e.keyCode === 73) {
-      // "i" dévoile une pièce sans animation
-      discoverPuzzlePiece(false);
+      discoverPuzzlePiece();
     } else if (e.keyCode === 82){
       // "r" dévoile toutes les pièces
       discoverAllPuzzlePieces();
-    } else if (e.keyCode === 78){
-      // "n" reset du Puzzle
-      puzzleReset();
+    } else if (e.keyCode === 70){
+      // "f" dévoile une pièce toutes les 3 secondes.
+      timer3s.start();
     } else if (e.keyCode === 83){
-      // "s" démarre le slideshow
-      playSlideshow(true);
-    } else if (e.keyCode === 68){
-      // "d" arrête le slideshow
-      playSlideshow(false);
+      // "s" dévoile une pièce toutes les 6 secondes.
+      timer6s.start();
+    } else if (e.keyCode === 67){
+      // Arrête les timers.
+      timer3s.stop();
+      timer6s.stop();
     }
 };
 
 function start(){
-  $('#puzzle').hide();
-  $('#slideshow').hide();
   fadeCache();
+  puzzleCreate();
 };

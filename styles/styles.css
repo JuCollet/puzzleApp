@@ -19,34 +19,19 @@ html {
   left: 0;
   z-index: 9999;
 }
-#wrap {
-  position: absolute;
-  width: 1000px;
-  height: 750px;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin: auto auto auto auto;
-}
 #puzzle {
   position:absolute;
   background-image: url('../images/bckgrd.jpg');
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
-  width:100%;
-  height:100%;
-  border-radius: 4px;
-}
-#slideshow {
-  position: absolute;
-  background-color: red;
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
-  width:100%;
-  height:100%;
+  width: 750px;
+  height: 750px;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto auto auto auto;
   border-radius: 4px;
 }
 .puzzlePiece {
