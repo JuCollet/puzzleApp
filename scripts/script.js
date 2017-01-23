@@ -17,13 +17,13 @@ document.onkeyup = function(e){
       // "s" dévoile une pièce toutes les 6 secondes.
       timer6s.start();
     } else if (e.keyCode === 67){
-      // Arrête les timers.
+      // "c" arrête les timers.
       timer3s.stop();
       timer6s.stop();
     }
 };
 
 function start(){
-  fadeCache();
   puzzleCreate();
+  fadeCache();
 };
