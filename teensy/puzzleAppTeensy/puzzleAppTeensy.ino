@@ -1,5 +1,5 @@
-const int l1 = 13;
-const int l2 = 10;
+const int l1 = 10;
+const int l2 = 13;
 const int l3 = 9;
 const int l4 = 8;
 const int l5 = 11;
@@ -36,7 +36,7 @@ objet = analogRead(A0);
       count2++;
   }
   
-  if(analogRead(A0) < 900){
+  if(analogRead(A0) < 100){
     Serial.println("Objet détecté");
     Serial.println(analogRead(A0));
     signal();
